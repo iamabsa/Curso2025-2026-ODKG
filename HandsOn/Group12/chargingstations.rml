@@ -3,6 +3,7 @@
 @prefix ql:   <http://semweb.mmlab.be/ns/ql#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 
 @prefix :   <https://iamabsa.github.io/chargingstation/resource/> .
 @prefix ns: <https://iamabsa.github.io/chargingstation#> .
@@ -10,7 +11,7 @@
 @base <https://iamabsa.github.io/chargingstation#> .
 
 #######################################################################
-# TriplesMap: Charging Station  (no joins; links via URI templates)
+# TriplesMap: Charging Station
 #######################################################################
 
 <#TriplesMap_Station> a rr:TriplesMap ;
@@ -20,7 +21,7 @@
   ] ;
 
   rr:subjectMap [
-    rr:template "https://iamabsa.github.io/chargingstation/resource/{EVSEID}" ;
+    rr:template "https://iamabsa.github.io/chargingstation/resource/station/{EVSEID}" ;
     rr:class ns:ChargingStation
   ] ;
 
@@ -45,24 +46,43 @@
     rr:predicate ns:directPayment ;
     rr:objectMap [ rml:reference "DIRECTPAYMENT" ; rr:datatype xsd:boolean ]
   ] ;
-  rr:predicateObjectMap [
-    rr:predicate ns:shapeWKT ;
-    rr:objectMap [ rml:reference "SHAPE" ]
-  ] ;
 
-  # Object links via URI templates (no parentTriplesMap needed)
-  rr:predicateObjectMap [
-    rr:predicate ns:isOperatedBy ;
-    rr:objectMap [
-      rr:template "https://iamabsa.github.io/chargingstation/resource/{OPERATORNAME}" ;
-      rr:termType rr:IRI
-    ]
-  ] ;
+  # Link to District (fix spelling to ns:isInDistrict)
   rr:predicateObjectMap [
     rr:predicate ns:isInDistrict ;
     rr:objectMap [
-      rr:template "https://iamabsa.github.io/chargingstation/resource/{BEZIRK}" ;
+      rr:template "https://iamabsa.github.io/chargingstation/resource/district/{CITY}-{BEZIRK}" ;
       rr:termType rr:IRI
+    ]
+  ] ;
+
+  # GeoSPARQL link: station -> geometry node
+  rr:predicateObjectMap [
+    rr:predicate geo:hasGeometry ;
+    rr:objectMap [
+      rr:template "https://iamabsa.github.io/chargingstation/resource/geometry/{EVSEID}" ;
+      rr:termType rr:IRI
+    ]
+  ] .
+
+#######################################################################
+# TriplesMap: Geometry
+#######################################################################
+
+<#TriplesMap_Geometry> a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source "CSV/ELADESTELLEOGD-updated.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template "https://iamabsa.github.io/chargingstation/resource/geometry/{EVSEID}" ;
+    rr:class geo:Geometry
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate geo:asWKT ;
+    rr:objectMap [
+      rml:reference "SHAPE" ;
+      rr:datatype geo:wktLiteral
     ]
   ] .
 
