@@ -4,6 +4,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 
 @prefix :   <https://iamabsa.github.io/chargingstation/resource/> .
 @prefix ns: <https://iamabsa.github.io/chargingstation#> .
@@ -67,19 +68,19 @@
 
   # Wikidata links for station
   rr:predicateObjectMap [
-    rr:predicate ns:cityURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "city_URL" ; rr:termType rr:IRI ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:districtURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "Bezirk_URL" ; rr:termType rr:IRI ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:operatorURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "Operator_URL" ; rr:termType rr:IRI ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:countryURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "COUNTRYCODE_URL" ; rr:termType rr:IRI ]
   ] .
 
@@ -124,7 +125,7 @@
     rr:objectMap [ rml:reference "OPERATORNAME" ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:operatorURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "Operator_URL" ; rr:termType rr:IRI ]
   ] .
 
@@ -155,7 +156,7 @@
     ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:districtURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "Bezirk_URL" ; rr:termType rr:IRI ]
   ] .
 
@@ -186,8 +187,8 @@
     ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:cityURL ;
-    rr:objectMap [ rml:reference "city URL" ; rr:termType rr:IRI ]
+    rr:predicate owl:sameAs ;
+    rr:objectMap [ rml:reference "city_URL" ; rr:termType rr:IRI ]
   ] .
 
 #######################################################################
@@ -210,8 +211,9 @@
     rr:objectMap [ rml:reference "COUNTRYCODE" ]
   ] ;
   rr:predicateObjectMap [
-    rr:predicate ns:countryURL ;
+    rr:predicate owl:sameAs ;
     rr:objectMap [ rml:reference "COUNTRYCODE_URL" ; rr:termType rr:IRI ]
   ] .
+
 
 
